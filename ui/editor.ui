@@ -83,6 +83,7 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="text" translatable="yes">About GTK Theme Creator</property>
+            <signal name="clicked" handler="about" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -93,11 +94,11 @@
       </object>
     </child>
   </object>
-  <object class="GtkWindow" id="main">
+  <object class="GtkWindow" id="editorWindow">
     <property name="width-request">640</property>
     <property name="height-request">640</property>
     <property name="can-focus">False</property>
-    <signal name="destroy" handler="onDestroy" swapped="no"/>
+    <signal name="destroy" handler="destroy" swapped="no"/>
     <child>
       <object class="GtkAlignment">
         <property name="visible">True</property>
@@ -422,7 +423,40 @@
                                                             </packing>
                                                             </child>
                                                             <child>
-                                                            <placeholder/>
+                                                            <object class="GtkBox">
+                                                            <property name="visible">True</property>
+                                                            <property name="can-focus">False</property>
+                                                            <property name="spacing">4</property>
+                                                            <child>
+                                                            <object class="GtkLabel">
+                                                            <property name="visible">True</property>
+                                                            <property name="can-focus">False</property>
+                                                            <property name="label" translatable="yes">#552255</property>
+                                                            </object>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">True</property>
+                                                            <property name="position">0</property>
+                                                            </packing>
+                                                            </child>
+                                                            <child>
+                                                            <object class="GtkDrawingArea">
+                                                            <property name="width-request">24</property>
+                                                            <property name="visible">True</property>
+                                                            <property name="can-focus">False</property>
+                                                            </object>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">True</property>
+                                                            <property name="position">1</property>
+                                                            </packing>
+                                                            </child>
+                                                            </object>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">True</property>
+                                                            <property name="position">1</property>
+                                                            </packing>
                                                             </child>
                                                           </object>
                                                         </child>
@@ -513,12 +547,13 @@
         <property name="subtitle" translatable="yes">~/GTKThemes/Project-Name</property>
         <property name="show-close-button">True</property>
         <child>
-          <object class="GtkToggleButton">
+          <object class="GtkButton" id="previewButton">
             <property name="label" translatable="yes">Preview</property>
             <property name="visible">True</property>
+            <property name="sensitive">False</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <signal name="toggled" handler="preview" swapped="no"/>
+            <signal name="clicked" handler="preview" swapped="no"/>
           </object>
         </child>
         <child>
@@ -655,5 +690,37 @@
     <style>
       <class name="devel"/>
     </style>
+  </object>
+  <object class="GtkAboutDialog" id="aboutDialog">
+    <property name="can-focus">False</property>
+    <property name="modal">True</property>
+    <property name="type-hint">dialog</property>
+    <property name="transient-for">editorWindow</property>
+    <property name="program-name">GTK Theme Creator</property>
+    <property name="version">1.0-alpha (Master Branch)</property>
+    <property name="copyright" translatable="yes">© 2020 ADeswanta Projects</property>
+    <property name="comments" translatable="yes">The advanced GTK theme creator tool for beginners</property>
+    <property name="license" translatable="yes">This program comes with absolutely no warranty.
+See the &lt;a href="https://www.gnu.org/licenses/gpl-3.0.html"&gt;GNU General Public License, version 3 or later&lt;/a&gt; for details.</property>
+    <property name="authors">Advendra Deswanta</property>
+    <property name="logo">../data/icons/128x128.svg</property>
+    <property name="wrap-license">True</property>
+    <property name="license-type">gpl-3-0</property>
+    <signal name="delete-event" handler="aboutHide" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>

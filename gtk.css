@@ -10,6 +10,7 @@ window, dialog {background: #242424;}
 window:backdrop, dialog:backdrop {background: #121212;}
 window.devel headerbar {background: #004e75;}
 window.devel headerbar:backdrop {background: #00344e;}
+window.popup menuitem {padding: 2px;}
 decoration { margin: 4px; border: 2px solid #969696}
 decoration:backdrop { border: 2px solid #646464}
 
@@ -48,10 +49,11 @@ button.link label {text-decoration: underline;}
 
 /* Toggle Button */
 .toggle:not(.popup) {border-bottom: 2px solid #fafafa}
-.toggle:disabled {border-bottom: 2px solid #a1a1a1}
+.toggle:disabled:not(.popup) {border-bottom: 2px solid #a1a1a1}
 .toggle:checked:not(.popup) {border-bottom: 2px solid #00abff}
-.toggle:checked:disabled {border-bottom: 2px solid #006da3}
-.toggle.destructive-action:not(.popup) {border-bottom: 2px solid #D50000}
+.toggle:checked:disabled:not(.popup) {border-bottom: 2px solid #006da3}
+.toggle.destructive-action {border-bottom: 2px solid #D50000}
+.toggle.destructive-action:disabled {border-bottom: 2px solid #D50000}
 
 /* Text Entry */
 entry {background: #121212; padding: 8px; border: 2px solid #646464}
@@ -68,28 +70,30 @@ scale contents {background: #646464;}
 scale contents:disabled {background: #323232;}
 
 /* Check Button */
-check {color: transparent; background: #484848; margin-right: 8px}
+check { background: #484848; margin-right: 8px}
 check:hover {background: #646464;}
 check:active {background: #323232;}
-check:checked {background: #007bb8;}
+check:checked {-gtk-icon-source: -gtk-icontheme('emblem-ok-symbolic'); background: #007bb8;}
 check:checked:hover {background: #00abff;}
 check:disabled {background: #303030;}
 check:disabled:checked {background: #004e75;}
 
 /* Radio Button */
-radio {color: transparent; background: #484848; margin-right: 8px; border-radius: 16px;}
+radio {background: #484848; margin-right: 8px; border-radius: 16px;}
 radio:hover {background: #646464;}
 radio:checked {background: #007bb8;}
 radio:checked:hover {background: #00abff;}
 radio:disabled {background: #303030;}
 radio:disabled:checked {background: #004e75;}
 
+/* Spinner */
 spinner {color: #007bb8;}
 
 /* Progress Bar */
 trough {background: #646464;}
 progress {background: #00abff;}
 
+/* Levelbar */
 levelbar.discrete trough {border: 1px solid; margin: 1px; background: #ff00ff}
 levelbar block.filled {background: #00abff}
 levelbar block.empty {background: #646464}
@@ -102,6 +106,7 @@ switch slider:backdrop {background: #242424; }
 switch:checked {background: #00abff; }
 switch:backdrop {background: #323232; }
 
+/* Notebook */
 notebook {border: 2px solid #646464}
 notebook header {background: #323232}
 notebook tab {padding: 8px 4px; min-width: 64px;}
@@ -110,24 +115,48 @@ notebook tab:checked {background: #006da3}
 notebook button {background: transparent; margin: 0px 2px; padding: 0px;}
 notebook tab:checked button:hover {background: #007bb8;}
 
+/* Popover */
 popover {background: #242424; border: 2px solid #646464; padding: 4px;}
 
-textview {outline: 2px solid #646464; background: #000000;}
+/* Text View and Viewport */
+textview, viewport {outline: 2px solid #646464; background: #000000;}
 
+/* Menubar */
 menubar {background: #007bb8;}
 menubar menuitem {padding: 4px 6px; background: transparent;}
 menubar menuitem:hover {background: #00abff;}
 
+/* Message Dialog */
 messagedialog decoration {background: #242424}
 messagedialog decoration:backdrop {background: #121212}
 messagedialog button {margin: 2px;}
 
+/* Scrollbar */
+scrollbar {min-width: 2px; background: #646464}
+scrollbar trough {background: #646464; margin: 6px}
+scrollbar button {min-width: 8px; min-height: 8px; padding: 6px;}
 scrollbar slider {min-height: 24px; border: 4px solid #007bb8;}
 scrollbar slider:hover {border: 4px solid #00abff;}
+scrollbar slider:active {border: 4px solid #005f8f;}
 overshoot {background: rgba(0, 171, 255, 0.5)}
 
-viewport {border: 2px solid #969696}
-row {border-bottom: 2px solid #969696}
+/* List Box */
 row.activatable:hover {background: #007bb8;}
 row.activatable:active {background: #004e75;}
 
+/* Stack Sidebar */
+stacksidebar row {padding: 6px 8px}
+
+/* Scrolled Window Broder */
+scrolledwindow, border:not(.flat) {border: 2px solid #969696}
+
+/* Separator */
+separator {border: 1px solid #646464}
+
+/* Model Button */
+modelbutton {padding: 4px;}
+modelbutton:hover {background: #323232}
+modelbutton:active {background: #121212}
+
+/* Toolbar */
+toolbar {background: #323232;}

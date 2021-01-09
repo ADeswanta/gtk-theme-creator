@@ -21,6 +21,21 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="text" translatable="yes">Settings</property>
+            <signal name="clicked" handler="settings" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="text" translatable="yes">About GTK Theme Creator</property>
+            <signal name="clicked" handler="about" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -37,6 +52,7 @@
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <signal name="destroy" handler="destroy" swapped="no"/>
+    <signal name="show" handler="init" swapped="no"/>
     <child>
       <object class="GtkAlignment">
         <property name="width-request">512</property>
@@ -224,6 +240,7 @@
                   <object class="GtkEntry" id="projectName">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="text" translatable="yes">Untitled Theme</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -323,17 +340,17 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButtonBox">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="homogeneous">True</property>
-                    <property name="layout-style">start</property>
+                    <property name="halign">start</property>
                     <child>
                       <object class="GtkCheckButton" id="gtk3Check">
                         <property name="label" translatable="yes">GTK 3.x</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
+                        <property name="active">True</property>
                         <property name="draw-indicator">True</property>
                       </object>
                       <packing>
@@ -344,8 +361,9 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="gtk4Check">
-                        <property name="label" translatable="yes">GTK 4.x</property>
+                        <property name="label" translatable="yes">GTK 4.x (Not work)</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
                         <property name="draw-indicator">True</property>
@@ -407,8 +425,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkRecentManager" id="recentmanager1">
-    <property name="filename">/home/adeswanta08/.var/app/org.gnome.Glade/data/recently-used.xbel</property>
   </object>
 </interface>

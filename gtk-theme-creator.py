@@ -1,7 +1,7 @@
-import gi, settings
+import gi, settings, fileManager
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk
 
 welcome = Gtk.Builder()
 welcome.add_from_file("ui/welcome.ui")
@@ -40,12 +40,31 @@ class welcomeHandler:
     def newProject(self, *args):
         welcome.get_object("newProjectDialog").show_all()
         welcome.get_object("projectDir").set_text(settings.getSettings()["settingDir"])
+    def openProject(self, *args):
+        dialog = Gtk.FileChooserDialog(
+            title="Open Project", parent=welcome.get_object("mainWindow"), action=Gtk.FileChooserAction.SELECT_FOLDER
+        )
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Select", Gtk.ResponseType.OK
+        )
+        response = dialog.run()
+        if response == Gtk.ResponseType.OK:
+            welcome.get_object("mainWindow").hide()
+            import editor
+            editor.setInfo(str(dialog.get_filename()).split('/')[-1], "/".join(str(dialog.get_filename()).split('/')[:-1]))
+        dialog.destroy()
+    def cancelNew(self, *args):
+        welcome.get_object("projectName").set_text("Untitled Theme")
     def openEditor(self, *args):
-        global projectName, projectDir
         welcome.get_object("newProjectDialog").hide()
         welcome.get_object("mainWindow").hide()
+        welcome.get_object("projectName").set_text(str(welcome.get_object("projectName").get_text()).replace(" ", "-"))
+        if welcome.get_object("gtk3Check").get_active():
+           fileManager.createGTK3(welcome.get_object("projectName").get_text(), welcome.get_object("projectDir").get_text())
+        if welcome.get_object("gtk4Check").get_active():
+           fileManager.createGTK4(welcome.get_object("projectName").get_text(), welcome.get_object("projectDir").get_text())
         import editor
-        editor.setTitle(welcome.get_object("projectName").get_text(), welcome.get_object("projectDir").get_text())
+        editor.setInfo(welcome.get_object("projectName").get_text(), welcome.get_object("projectDir").get_text())
     def browseDir(self, *args):
         dialog = Gtk.FileChooserDialog(
             title="Please choose a location", parent=welcome.get_object("newProjectDialog"), action=Gtk.FileChooserAction.SELECT_FOLDER

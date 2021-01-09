@@ -6,16 +6,20 @@ from gi.repository import Gtk, Gdk, Gio, GLib
 editor = Gtk.Builder()
 editor.add_from_file("ui/editor.ui")
 
-previewProc = Gio.Subprocess.new(["python3", "preview.py"], 0)
+previewProc = Gio.Subprocess
+command = ["python3", "preview.py", editor.get_object("editorTitle").get_subtitle() + "/" + editor.get_object("editorTitle").get_title()]
 
 def getPreviewStatus():
     if previewProc.get_if_exited():
         editor.get_object("previewButton").set_sensitive(True)
     return GLib.SOURCE_CONTINUE
 
-def setTitle(projectName, projectDir):
+def setInfo(projectName, projectDir):
+    global fullProjectDir, previewProc, command
     editor.get_object("editorTitle").set_title(projectName)
     editor.get_object("editorTitle").set_subtitle(projectDir)
+    command = ["python3", "preview.py", editor.get_object("editorTitle").get_subtitle() + "/" + editor.get_object("editorTitle").get_title()]
+    previewProc = Gio.Subprocess.new(command, 0)
 
 class editorHandler:
     def init(self, *args):
@@ -37,7 +41,7 @@ class editorHandler:
         return True
     def preview(self, *args):
         global previewProc
-        previewProc = Gio.Subprocess.new(["python3", "preview.py"], 0)
+        previewProc = Gio.Subprocess.new(command, 0)
         editor.get_object("previewButton").set_sensitive(False)
     def settingAction(self, listbox, listboxrow):
         if listboxrow.get_index() == 0:
@@ -51,4 +55,4 @@ editor.connect_signals(editorHandler())
 window = editor.get_object("editorWindow")
 window.show_all()
 
-GLib.timeout_add(100,getPreviewStatus)
+GLib.timeout_add(500,getPreviewStatus)

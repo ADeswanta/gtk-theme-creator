@@ -1,0 +1,7 @@
+{
+    "settingDir": "/home/adeswanta08/.themes",
+    "settingEditor": {
+        "name": "Text Editor",
+        "command": "gedit %U"
+    }
+}
